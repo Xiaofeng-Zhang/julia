@@ -20,3 +20,5 @@
 /julia_version.h
 /flisp/host
 /support/host
+
+/compile_commands*.json
