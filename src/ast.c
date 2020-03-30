@@ -2,7 +2,9 @@
 
 /*
   AST
-  interface to front-end, obtains and translates syntax trees
+  interface to flisp front-end, obtains and translates syntax trees
+
+  This file contains all code which interacts with the flisp frontend.
 */
 #include <stdlib.h>
 #include <stdio.h>
@@ -809,8 +811,7 @@ JL_DLLEXPORT jl_value_t *jl_fl_parse(const char *content, size_t content_len,
         expr = e == fl_ctx->FL_EOF ? jl_nothing : scm_to_julia(fl_ctx, e, NULL);
         pos1 = e == fl_ctx->FL_EOF ? jl_box_long(content_len) : jl_box_long(0);
     }
-    else if (rule == JL_PARSE_STATEMENTS ||
-             rule == JL_PARSE_ATOM) {
+    else if (rule == JL_PARSE_STATEMENTS || rule == JL_PARSE_ATOM) {
         value_t greedy = rule == JL_PARSE_STATEMENTS ?
                          fl_ctx->T : fl_ctx->F;
         value_t p = fl_applyn(fl_ctx, 4, symbol_value(symbol(fl_ctx, "jl-parse-one")),
